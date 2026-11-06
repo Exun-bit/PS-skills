@@ -75,3 +75,8 @@ If the user explicitly authorizes using a logo already visible in the source ima
 If Photoshop is not connected or no controlled image-editing tool is available, provide an executable Photoshop workflow or precise edit prompt. Do not claim to have opened, edited, saved, exported, or visually verified a file unless that operation actually occurred.
 
 For exact apparel preservation, prefer controlled local editing over full-image generation.
+
+
+## Adobe execution
+
+When Adobe tools are connected, route image operations through the Adobe execution layer defined in the focused skill. Prefer controlled local editing over generative full-image regeneration. The master router does not claim Photoshop layer/UXP operations are available unless the connected tool actually supports them.
