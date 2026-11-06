@@ -274,3 +274,26 @@ When the Adobe connector is available, use Adobe image tools for the actual imag
 ### Test mode
 
 For every brand-replacement test, keep the original source unchanged and create a PASS/FAIL result. A visually plausible regenerated garment is not sufficient evidence of success.
+
+
+## Source-logo fallback test rule
+
+When the user says “use the logo in the product image” and no separate replacement-logo asset exists:
+
+1. Treat the visible source logo as a **reference asset only**.
+2. Do not type the company name or invent a new logo.
+3. If the source logo is the same mark that must be removed, placing that exact mark back into the same location is **not a replacement** and cannot validate the replacement pipeline.
+4. In that case, the test may validate the **brand-removal stage** only; the replacement stage remains BLOCKED unless there is a distinct target location, a second source image, or a separately supplied replacement identity.
+5. Never convert “logo reference available” into “replacement completed.”
+6. If the user explicitly wants a pipeline test despite this limitation, create a controlled test fixture with a different target location or a non-branded placeholder only when the user authorizes that test; otherwise report BLOCKED.
+
+### Minimum test fixture
+
+A valid replacement test requires:
+- source garment image;
+- identifiable old brand region;
+- distinct replacement reference;
+- target region where the replacement can be verified;
+- source/output comparison.
+
+A single image containing only the old logo is insufficient to prove that the old logo was replaced by a different identity.
