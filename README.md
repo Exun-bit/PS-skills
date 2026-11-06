@@ -37,3 +37,10 @@ The current default profile is stored separately in [profiles/current-brand.md](
 ## References that informed the workflow
 
 The structure borrows general workflow patterns from public Photoshop agent skills and Adobe's batch-editing skill: task routing, state/backup/operate/verify, non-destructive editing, batch consistency, and explicit export checks. This repository is an independent apparel-focused implementation, not a copy of those projects.
+
+
+## Quality gate
+
+Brand/logo replacement uses a mandatory PASS/FAIL gate. A result is not accepted when the original brand remains readable, the replacement is missing/incorrect, or protected garment details have been materially regenerated. For exact apparel preservation, controlled local editing is preferred over full-image generation.
+
+If the user explicitly authorizes an existing logo visible in the source image as the replacement reference, the brand-replacement skill may use that source logo as a transfer reference. If the same logo is placed back in the same location, that is treated as an unchanged source—not as proof that the replacement pipeline succeeded.
