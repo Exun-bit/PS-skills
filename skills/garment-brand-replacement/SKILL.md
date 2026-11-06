@@ -1,83 +1,251 @@
 ---
 name: garment-brand-replacement
-description: Remove customer logos, brand names, proprietary marks, and customer-specific graphics from apparel images, then apply the user's currently authorized brand identity while preserving the garment and the original visual treatment. Use whenever the user requests logo replacement or brand cleanup on clothing.
+description: Remove customer logos, brand names, proprietary marks, and customer-specific graphics from apparel images, then apply an authorized replacement identity while preserving the garment and the original visual treatment. Use whenever the user requests logo replacement, brand cleanup, or source-logo transfer on clothing.
 ---
 
 # Garment Brand Replacement
 
-## Default interpretation
+## Core objective
 
-When the user asks to replace a garment brand/logo:
-1. Remove the original customer brand name, logo, monogram, proprietary symbol, and other customer-identifying graphic elements from the requested garment areas.
-2. Apply the currently authorized brand identity from the current brand profile, unless the user names another brand or supplies another logo.
-3. Preserve the garment design and all unrelated generic decoration.
+Treat the garment photo as the source of truth.
 
-Do not interpret "replace the logo" as permission to redesign the garment.
+The task is **local pixel editing**, not a redesign or image regeneration. Change only the requested brand-bearing regions. Preserve every unrelated garment detail.
 
 ## Brand source priority
 
-Use this order:
-1. Logo/artwork file supplied in the current task.
-2. Explicit brand and logo choice in the current conversation.
-3. Latest confirmed brand profile in `profiles/current-brand.md`.
+Use the following order:
 
-A brand name typed in text is not a substitute for the actual logo artwork when visual fidelity matters. If the logo file is unavailable, ask the user to upload it or ask whether a clean text-only treatment is acceptable. Never invent a logo.
+1. Replacement logo/artwork file supplied in the current task.
+2. An explicit logo/brand choice stated in the current conversation.
+3. The latest confirmed brand profile in `profiles/current-brand.md`.
 
-The brand profile is configurable. Do not hard-code YuMu or any other company into the reusable workflow.
+### Source-image logo fallback
 
-## What to remove
+If the user explicitly says to use a logo already visible in the product/source image as the replacement reference, this is allowed.
 
-Remove all customer-specific brand identifiers visible in the requested scope, including:
-- Original logo, wordmark, monogram, slogan, and branded emblem.
-- Customer brand text and proprietary symbols.
-- Customer-specific print/graphic artwork when the user has asked for complete removal or replacement.
-- Branded labels and tags if they are visible and included in the requested cleanup.
+In that case:
 
-Do not leave partial letters, ghosting, color halos, stitch remnants, or recognizable fragments.
+- Isolate the visible logo artwork from the source image.
+- Treat it as a **reference/transfer source**, not as permission to invent a new logo.
+- Preserve its letterform, proportions, color, distressing, and production appearance as closely as the source permits.
+- If the requested operation would place the exact same logo back in exactly the same location, do not pretend that a replacement occurred. Report that the source logo is unchanged and that the test cannot validate brand-removal behavior from that image alone.
+- If the user wants to test the replacement pipeline, apply the source-derived logo to a different target region/image where an actual replacement can be verified.
 
-## What may remain
+A typed brand name is not automatically a substitute for logo artwork when visual fidelity matters. Never invent a proprietary logo.
 
-Preserve generic design elements that are not customer identifiers, unless instructed otherwise:
-- Generic stars, stripes, flames, abstract shapes, numbers used decoratively, distressing, and non-branded motifs.
-- Garment construction details, seams, topstitching, panels, pockets, hardware, and fabric effects.
-- Generic decorative artwork that the user has not asked to remove.
+## Scope of removal
 
-If a motif could reasonably be a customer-specific logo or proprietary graphic, ask or remove it according to the user's explicit scope. Do not assume every graphic is generic.
+When the user requests complete brand cleanup, remove all customer-specific identifiers in the requested scope:
 
-## Placement and material matching
+- Wordmarks and brand names.
+- Logos, monograms, emblems, symbols and slogans.
+- Customer-specific branded graphics.
+- Branded labels/tags when included in the requested area.
 
-Before placing the new mark, determine:
-- Garment surface orientation and perspective.
-- Fabric type and texture (jersey, fleece, denim, satin, leather, etc.).
-- Print/embroidery technique (screen print, DTG, puff print, flat embroidery, applique, etc.).
-- Scale, rotation, distortion, edge character, color, opacity, and position.
+Do not leave:
 
-Match the original production appearance only when the user wants a like-for-like replacement. Otherwise follow the supplied logo and placement reference. For embroidery, simulate thread direction, stitch relief, edge density, and shadow only to the extent supported by the source/reference. Do not falsely describe a visual simulation as a real production file.
+- Partial letters.
+- Ghosted shapes.
+- Color halos.
+- Stitch remnants.
+- Shadow remnants that reveal the old mark.
+- Recognizable fragments.
 
-## Special label rule
+## Elements that remain
 
-Do not add or retain a main label or neck label unless the user explicitly requests it. Do not invent size labels or care labels.
+Preserve unrelated generic design elements unless the user explicitly asks for removal:
+
+- Generic stars, stripes, flames, abstract shapes and decorative numbers.
+- Distressing, cracks, fading and wash effects.
+- Seams, topstitching, panels, pockets and hardware.
+- Fabric grain, weave, knit/fleece texture and local lighting.
+
+If a graphic could reasonably be a proprietary brand element, follow the user's stated scope instead of guessing.
+
+## Protected garment features
+
+Unless explicitly requested, do not alter:
+
+- Silhouette, fit, proportions or pattern pieces.
+- Hood, sleeves, cuffs, hem and ribbing.
+- Zipper, drawcords, snaps, buttons and hardware.
+- Pocket geometry and stitching.
+- Fabric color, wash, distressing and texture.
+- Existing non-target prints or embroidery.
+- Background, camera angle, perspective and shadows.
+
+## Replacement procedure
+
+### Phase 1 — Inspect
+
+Before editing, identify:
+
+1. Every brand-bearing region.
+2. The exact target area.
+3. The garment surface orientation.
+4. The production technique: screen print, DTG, puff print, embroidery, applique, etc.
+5. The local texture, grain, folds, lighting and shadow.
+
+Do not begin replacement until the target region is isolated conceptually.
+
+### Phase 2 — Remove
+
+Use a separate retouch layer or duplicated source.
+
+1. Mask/select only the old brand area.
+2. Remove the old mark using the least destructive suitable method.
+3. Reconstruct the underlying fabric/print surface from valid nearby pixels.
+4. Preserve seams, folds, texture and garment construction crossing the target area.
+5. Inspect the cleaned area **before** placing the replacement.
+
+### Phase 3 — Place
+
+Place the authorized replacement as a separate layer or Smart Object where possible.
+
+Match:
+
+- Position.
+- Scale.
+- Rotation.
+- Perspective/warp.
+- Surface curvature.
+- Opacity.
+- Edge softness.
+- Color.
+- Distressing.
+- Print/embroidery character.
+
+Do not flatten the replacement into the source until verification is complete.
+
+### Phase 4 — Material integration
+
+The replacement must visually belong to the garment.
+
+For printed artwork, match the source's:
+
+- Ink density.
+- Fabric interaction.
+- Cracking/distressing.
+- Local folds.
+- Grain and texture.
+- Lighting and shadow.
+
+For embroidery, match only what can be supported by the reference:
+
+- Thread direction.
+- Stitch density.
+- Relief.
+- Edge structure.
+- Local shadow.
+
+Do not claim a simulated effect is a production-ready embroidery file.
+
+## Mandatory verification gate
+
+A replacement is **NOT complete** until all checks pass.
+
+### A. Brand-removal check
+
+At 100% zoom:
+
+- No original letters remain.
+- No original logo fragments remain.
+- No ghosting/halo remains.
+- No old brand color remains in the cleaned region.
+- No original outline is visible beneath the replacement.
+
+### B. Replacement check
+
+- Correct authorized logo/reference was used.
+- Correct placement.
+- Correct scale and perspective.
+- Correct material/print treatment.
+- No accidental duplication or deformation.
+
+### C. Garment-preservation check
+
+Compare source vs output:
+
+- Silhouette unchanged.
+- Seams unchanged.
+- Pockets unchanged.
+- Hardware unchanged.
+- Fabric texture unchanged outside the edit.
+- Color/wash unchanged.
+- Lighting/shadows unchanged except where the replacement naturally affects them.
+
+### D. Residual-brand sweep
+
+Inspect the whole image, not only the main chest area:
+
+- Front.
+- Back.
+- Sleeves.
+- Hood.
+- Pockets.
+- Hem.
+- Neck/labels.
+- Any visible secondary graphics.
+
+If a customer brand remains within the user's requested cleanup scope, the result is **FAIL**.
+
+## Pass / Fail criteria
+
+### PASS
+
+All four verification gates pass and the output preserves the source garment.
+
+### FAIL
+
+Any of these is an automatic failure:
+
+1. Original brand remains readable.
+2. Original logo is still visible underneath the replacement.
+3. Replacement logo is missing or clearly incorrect.
+4. Garment construction is materially changed.
+5. Texture/lighting is obviously regenerated or inconsistent.
+6. Unrequested graphics or labels are added.
+7. The output cannot be compared reliably with the source because the garment was substantially regenerated.
+
+When a generated image fails, do not describe it as a successful edit. Return to the source and use a more controlled local-edit workflow.
 
 ## Photoshop procedure
 
-1. Duplicate the source layer/document and name the copy clearly.
-2. Inspect every visible brand-bearing region.
-3. Use selections and masks to isolate each mark.
-4. Remove the old mark with the least destructive suitable method: clone/heal/content-aware fill or a generative tool where necessary. Rebuild folds, texture, and grain from nearby valid source areas.
-5. Inspect the cleaned region before adding the new mark. If removal damages seams or fabric structure, repair that first.
-6. Place the supplied replacement logo as a Smart Object where possible.
-7. Transform and warp it to the garment plane. Match local perspective and curvature; avoid stretching the logo disproportionately.
-8. Match the material/print treatment with appropriate blend modes, displacement, texture, and restrained lighting effects.
-9. Inspect at 100% for halos, repeated texture, hard edges, incorrect perspective, and residual original branding.
-10. Toggle the original and edited layers to compare. Confirm that all non-target garment features remain stable.
+1. Duplicate the source document/layer.
+2. Create a dedicated group named `BRAND_REPLACEMENT`.
+3. Keep `SOURCE_ORIGINAL` untouched.
+4. Create one mask/retouch layer per brand-bearing region.
+5. Clean the old mark first.
+6. Place the replacement on its own layer/Smart Object.
+7. Warp/transform to the garment surface.
+8. Add only the minimum material integration required.
+9. Toggle source/output visibility to compare.
+10. Inspect at 100%.
+11. Inspect at normal viewing size.
+12. Run the residual-brand sweep.
+13. Save an editable PSD when requested or useful.
+14. Export the requested final format.
 
-## Completion checklist
+## Generative-image limitation
 
-- [ ] Original customer brand marks removed from the requested scope.
-- [ ] No partial text, ghosting, or recognizable logo fragments remain.
-- [ ] Correct current logo used; no invented logo.
-- [ ] Logo placement, scale, perspective, and material appearance are plausible.
-- [ ] Garment color, silhouette, seams, folds, fabric texture, wash, and construction preserved.
-- [ ] Generic motifs retained unless explicitly excluded.
-- [ ] No unrequested main/neck label added.
-- [ ] Output visually checked at 100% and normal viewing size.
+Generative image tools may change unrelated garment details, typography, seams, fabric texture or proportions. Therefore:
+
+- Do not treat a regenerated image as equivalent to a Photoshop local edit.
+- Use generative tools only when the task explicitly permits regeneration or when no controlled editor is available.
+- For exact apparel preservation, prefer masks, clone/heal, content-aware fill, Smart Objects and local transforms.
+- If a generated result changes protected garment features or retains the old brand, mark it **FAIL** rather than accepting it because it looks plausible.
+
+## Special label rule
+
+Do not add or retain a main label or neck label unless explicitly requested. Do not invent size labels, care labels or hangtags.
+
+## Completion report
+
+After editing, report only:
+
+- What brand-bearing elements were removed.
+- What replacement reference was used.
+- Whether garment-preservation checks passed.
+- Any limitation that could not be verified.
+
+Never claim Photoshop operations, file saves, exports or visual checks that were not actually performed.
