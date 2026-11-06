@@ -80,3 +80,8 @@ For exact apparel preservation, prefer controlled local editing over full-image 
 ## Adobe execution
 
 When Adobe tools are connected, route image operations through the Adobe execution layer defined in the focused skill. Prefer controlled local editing over generative full-image regeneration. The master router does not claim Photoshop layer/UXP operations are available unless the connected tool actually supports them.
+
+
+## Brand replacement test fixture
+
+Do not mark a logo-replacement test PASS when the only available logo reference is the same logo already present in the source image. That can validate removal, but not identity replacement. Require a distinct replacement reference or a distinct target region. If neither exists, report **BLOCKED — replacement identity not independently verifiable** rather than generating or inventing a logo.
