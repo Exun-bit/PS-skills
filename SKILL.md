@@ -85,3 +85,8 @@ When Adobe tools are connected, route image operations through the Adobe executi
 ## Brand replacement test fixture
 
 Do not mark a logo-replacement test PASS when the only available logo reference is the same logo already present in the source image. That can validate removal, but not identity replacement. Require a distinct replacement reference or a distinct target region. If neither exists, report **BLOCKED — replacement identity not independently verifiable** rather than generating or inventing a logo.
+
+
+## Fixed-template product replacement default
+
+For recurring ad-layout swaps, load `skills/apparel-compositing/SKILL.md` and follow its **Fixed-master product replacement** section. The approved reference is an immutable master: lock the left panel and original diagonal divider, remove only the old garment, then extract the supplied garment and place it at the old garment's visual footprint (same approximate scale, center, position, and margins). Never replace the whole right panel with the full source photo.
