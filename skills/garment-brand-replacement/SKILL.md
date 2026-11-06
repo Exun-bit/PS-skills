@@ -249,3 +249,28 @@ After editing, report only:
 - Any limitation that could not be verified.
 
 Never claim Photoshop operations, file saves, exports or visual checks that were not actually performed.
+
+
+## Adobe execution layer
+
+When the Adobe connector is available, use Adobe image tools for the actual image operation rather than relying on a full-image generative redraw.
+
+### Tool routing
+
+- Inspect/display source: Adobe asset preview / interactive image context as required by the Adobe workflow.
+- Select a brand-bearing region: `image_select_by_prompt`.
+- Remove text/logo content: `image_instruct_edit` is the supported content-removal tool; do not use `image_fill_area` for text/logo removal.
+- Apply a controlled local tonal/color adjustment: `image_apply_adjustments` with a mask when appropriate.
+- For exact logo placement, perspective warp, Smart Object placement, layer-level masking, or compositing of a separate logo asset: use connected Photoshop/UXP capabilities when available. The generic Adobe Firefly image editor is not a substitute for exact layer-based compositing.
+- After any server-side image tool returns a new image, preview the result before accepting it.
+- If the available Adobe tool cannot perform an exact local replacement without regenerating protected garment details, mark the operation **FAIL** and do not present the generated result as a production-faithful replacement.
+
+### Execution priority
+
+1. Controlled Photoshop/UXP layer operation.
+2. Adobe local image editing with a verified mask.
+3. Generative editing only as a fallback when the user explicitly accepts possible garment changes.
+
+### Test mode
+
+For every brand-replacement test, keep the original source unchanged and create a PASS/FAIL result. A visually plausible regenerated garment is not sufficient evidence of success.
