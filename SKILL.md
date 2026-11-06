@@ -7,7 +7,7 @@ description: Route Photoshop and image-editing tasks for apparel export and cust
 
 ## Mission
 
-Produce accurate, commercially usable apparel visuals while preserving the source garment. The garment itself is the source of truth; never redesign it unless the user explicitly requests a redesign.
+Produce accurate, commercially usable apparel visuals while preserving the source garment. The garment itself is the source of truth; never redesign or substantially regenerate it unless the user explicitly requests regeneration.
 
 ## Route by task
 
@@ -21,34 +21,57 @@ For multi-stage tasks, load the minimum required skills and run them in order: b
 
 ## Standard workflow
 
-1. **Understand the request.** Identify the source image, reference image, target brand, exact editable elements, protected elements, and output requirements. If one essential asset is missing (for example, the replacement logo), ask for it rather than fabricating it.
-2. **Inspect.** Check garment silhouette, seams, panels, fabric texture, wash, print/embroidery, lighting, shadows, perspective, and existing brand marks. Inspect all visible areas, including sleeves, pockets, hood, hem, labels, and background.
-3. **Protect.** Duplicate the source or save a separate working copy. Prefer adjustment layers, masks, Smart Objects, and separate retouch layers. Do not flatten the only source.
-4. **Edit locally.** Select only the requested region. Avoid global changes when a local correction is sufficient.
-5. **Preserve.** Keep all unrequested garment details unchanged. Match local grain, texture, lighting, folds, perspective, and edge softness when replacing or removing an element.
-6. **Verify.** Compare source and output at full size and at normal viewing size. Check garment geometry, edges, color, texture, artifacts, hidden logos, and requested removals.
-7. **Deliver.** Export the requested file type and dimensions. Keep editable PSD when requested or when it materially helps future revisions. State what was changed and what could not be verified.
+1. **Understand.** Identify source image, reference image, target brand, editable elements, protected elements, and output requirements.
+2. **Inspect.** Check silhouette, seams, panels, fabric texture, wash, print/embroidery, lighting, shadows, perspective, and all visible brand marks.
+3. **Protect.** Keep an untouched source. Prefer adjustment layers, masks, Smart Objects, and separate retouch layers.
+4. **Edit locally.** Select only the requested region. Avoid global regeneration when local editing is sufficient.
+5. **Preserve.** Keep unrequested garment details unchanged.
+6. **Verify.** Compare source and output at 100% and normal viewing size. Run a residual-brand sweep.
+7. **Deliver.** Export the requested format/dimensions and state any unverified limitation.
 
 ## Non-negotiable preservation rules
 
 - Do not change garment fit, silhouette, proportions, pattern pieces, seams, stitching, ribbing, zipper, drawstrings, pockets, hood shape, or hardware unless requested.
-- Do not change fabric composition appearance, knit/weave, fleece pile, denim grain, satin sheen, wash, distressing, fading, or surface texture unless requested.
+- Do not change fabric appearance, knit/weave, fleece pile, denim grain, satin sheen, wash, distressing, fading, or surface texture unless requested.
 - Do not shift garment color or exposure as a side effect of logo replacement.
 - Do not redraw, retype, simplify, sharpen, or smooth artwork unless the user asks.
 - Do not add invented labels, neck tags, hangtags, size marks, watermarks, or decorative elements.
 - Preserve generic non-brand decoration unless the user says to remove it.
-- Never leave remnants of a customer brand when the user explicitly asks for complete brand cleanup.
+- Never leave remnants of a customer brand when complete brand cleanup was requested.
+
+## Verification gate
+
+Every edit must receive a PASS/FAIL decision before delivery.
+
+**PASS only if:**
+- Requested brand elements are removed.
+- Authorized replacement is present and correct.
+- No residual branding remains in scope.
+- Protected garment features remain materially unchanged.
+- Output is visually checked at 100% and normal size.
+
+**FAIL if:**
+- Old branding remains readable or recognizable.
+- Replacement is missing/incorrect.
+- Garment construction or texture is materially regenerated.
+- Unrequested labels/graphics are added.
+- The output cannot be reliably compared with the source.
+
+If FAIL, do not present the result as completed. Explain the failure and use a more controlled editing method.
 
 ## Clarification rules
 
 Ask one direct question only when an essential decision cannot be inferred safely:
+
 - Which logo file should be used?
-- Which reference image controls the layout?
-- Should a customer-specific graphic be removed entirely or replaced with supplied artwork?
+- Which reference controls the layout?
+- Should a customer-specific graphic be removed or replaced?
 - What exact output size/format is required when it materially affects delivery?
 
-Do not ask for information already provided in the current conversation or current brand profile.
+If the user explicitly authorizes using a logo already visible in the source image as the replacement reference, do not ask for a separate logo file.
 
 ## Tool honesty
 
-If Photoshop is not connected or no image-editing tool is available, provide an executable Photoshop workflow or a precise edit prompt. Do not claim to have opened, edited, saved, or exported a file unless the operation actually succeeded and the output was checked.
+If Photoshop is not connected or no controlled image-editing tool is available, provide an executable Photoshop workflow or precise edit prompt. Do not claim to have opened, edited, saved, exported, or visually verified a file unless that operation actually occurred.
+
+For exact apparel preservation, prefer controlled local editing over full-image generation.
